@@ -1,0 +1,16 @@
+﻿
+@model string
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ButtonPartial";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<td style="width:150px;">
+    <div class="btn-group">
+        <a asp-action="Edit" asp-controller="User" class="btn btn-primary" asp-route-id="@Model"><i class="far fa-edit"></i></a>
+        <a asp-action="Details" asp-controller="User" class="btn btn-success" asp-route-id="@Model"><i class="fas fa-list-ul"></i></a>
+        <a asp-action="Locout" asp-controller="User" class="btn btn-danger" asp-route-id="@Model"><i class="fas fa-trash-alt"></i></a>
+    </div>
+</td>
+

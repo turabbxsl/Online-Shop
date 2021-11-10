@@ -1,0 +1,68 @@
+﻿
+@using Online_Shop.Models
+
+@model IEnumerable<SpecialTags>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Special Tag List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New Special Tag</a>
+    </div>
+</div>
+<br />
+
+<div>
+    <table class="table table-striped border">
+
+        <tr class="table-info">
+            <th>@Html.DisplayNameFor(x => x.SpecialTag)</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SpecialTag</td>
+                <td>
+                    <partial name="ButtonPartial2" model="@item.ID" />
+                </td>
+            </tr>
+
+        }
+
+    </table>
+</div>
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var save = '@TempData["save"]'
+            if (save != '') {
+                alertify.success(save);
+            }
+
+            var update = '@TempData["update"]'
+            if (update != '') {
+                alertify.warning(update);
+            }
+
+            var deletee = '@TempData["delete"]'
+            if (deletee != '') {
+                alertify.error(deletee);
+            }
+
+        });
+    </script>
+}
+

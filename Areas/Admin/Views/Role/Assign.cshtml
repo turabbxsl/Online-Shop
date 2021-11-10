@@ -1,0 +1,60 @@
+﻿
+@model Online_Shop.Areas.Admin.Models.RoleUserVm
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Assign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<h2 class="text-info">Assign Role</h2>
+
+<form asp-action="Assign" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <h3>@ViewBag.mgs</h3>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="UserId"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="UserId" asp-items="ViewBag.UserId" class="form-control"></select>
+                @*<input asp-for="ProductTypeID" class="form-control" />*@
+            </div>
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="RoleName"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="RoleName" asp-items="ViewBag.RoleName" class="form-control"></select>
+                @*<input asp-for="SpecialTagID" class="form-control" />*@
+            </div>
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Assign" />
+            <a asp-action="Index" class="btn btn-success">Back To List</a>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}
+
+
+
+

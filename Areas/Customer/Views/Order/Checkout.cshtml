@@ -1,0 +1,133 @@
+﻿
+
+@using Online_Shop.Utility
+@using Online_Shop.Models
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@model Online_Shop.Models.Order
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    List<Products> products = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("products");
+
+
+    if (products == null)
+    {
+        products = new List<Products>();
+    }
+
+}
+
+<br />
+
+<h2 class="text-info">Product Details</h2>
+<form asp-action="Checkout" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input type="hidden" asp-for="ID" />
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PhoneNo"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="PhoneNo" class="form-control" />
+                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                </div>
+            
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Address"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+              
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="EMail"></label>
+                </div>
+                <div class="col-8">
+                    @*<select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"></select>*@
+                    <input asp-for="EMail" class="form-control" />
+                    <span asp-validation-for="EMail" class="text-danger"></span>
+                </div>
+                
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="OrderDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="OrderDate" class="form-control" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>Image</tr>
+                    <tr>Name</tr>
+                    <tr>Price</tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in products)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/@item.Image" height="100px" width="150px" />
+                            </td>
+                            <td>@item.Name</td>
+                            <td>@item.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-right">
+            <h3>Total Price : @products.Sum(c => c.Price)</h3>
+        </div>
+
+        <div class="form-group text-right">
+            <input type="submit" value="Place Order" class="btn btn-success" />
+        </div>
+
+    </div>
+</form>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
